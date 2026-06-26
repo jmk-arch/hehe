@@ -1623,8 +1623,8 @@ function TabMethods:AddKeybind(flag, cfg)
 
     local modeButtons = {}
     local function renderModes()
-        for name, row in pairs(modeButtons) do
-            row.Circle.BackgroundColor3 = object.Mode == name and Color3.fromRGB(235, 235, 235) or Color3.fromRGB(67, 67, 67)
+        for name, info in pairs(modeButtons) do
+            info.Circle.BackgroundColor3 = object.Mode == name and Color3.fromRGB(235, 235, 235) or Color3.fromRGB(67, 67, 67)
         end
     end
 
@@ -1660,8 +1660,10 @@ function TabMethods:AddKeybind(flag, cfg)
             ZIndex = 72,
             Parent = row
         })
-        row.Circle = circle
-        modeButtons[name] = row
+        modeButtons[name] = {
+            Button = row,
+            Circle = circle
+        }
         connect(row.MouseButton1Click, function()
             object.Mode = name
             renderModes()
@@ -1900,8 +1902,10 @@ function TabMethods:AddRadioGroup(flag, cfg)
             Size = UDim2.new(1, -28, 1, 0),
             Parent = b
         })
-        b.Circle = circle
-        object.Buttons[value] = b
+        object.Buttons[value] = {
+            Button = b,
+            Circle = circle
+        }
         connect(b.MouseButton1Click, function()
             object:SetValue(value)
         end)
@@ -2147,8 +2151,10 @@ function FeatureCardMethods:AddRadioGroup(flag, cfg)
             Size = UDim2.new(1, -27, 1, 0),
             Parent = b
         })
-        b.Circle = circle
-        object.Buttons[value] = b
+        object.Buttons[value] = {
+            Button = b,
+            Circle = circle
+        }
         connect(b.MouseButton1Click, function()
             object:SetValue(value)
         end)
